@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .overdue {
+        color: red;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>People</title>
+</head>
+<body>
+<p th:text="${person.username}">VALUE</p>
+<p th:text="${person.email}">VALUE</p>
+
+<div th:unless = "${person.getOrders().isEmpty()}">
+    <hr/>
+    <b>List of orders: </b>
+    <br/>
+    <table>
+        <tr th:each="order : ${person.getOrders()}">
+            <td>
+                <a th:text="${order.id} + ', ' + ${order.getOrder_date()}"></a>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="item : ${order.getItems()}">
+                        <span th:text="${item.name} + ', ' + ${item.price} + ' RUB'" >Item Name</span>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+<div th:if = "${person.getOrders().isEmpty()}">
+    <p>Person order list is empty</p>
+</div>
+
+<a th:href="@{/person/{id}/edit(id=${person.getId()})}">Edit</a>
+<form th:method="DELETE" th:action="@{/person/{id}(id = ${person.getId()})}">
+    <input type="submit" value="DELETE"/>
+
+</form>
+</body>
+</html>

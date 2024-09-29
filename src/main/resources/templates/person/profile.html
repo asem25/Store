@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<body>
+<h1>Welcome, <span th:text="${person.username}">User</span>!</h1>
+<h2>Ur email: <span th:text="${person.email}">Email</span></h2>
+<h3>Balance: <span th:text="${person.balance}">Balance</span></h3>
+<div th:unless = "${person.getOrders().isEmpty()}">
+    <hr/>
+    <b>List of orders: </b>
+    <br/>
+    <table>
+        <tr th:each="order : ${person.getOrders()}">
+            <td>
+                <a th:text="${order.id} + ', ' + ${order.getOrder_date()}"></a>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="item : ${order.getItems()}">
+                        <span th:text="${item.name} + ', ' + ${item.price} + ' RUB'" >Item Name</span>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+<div th:if = "${person.getOrders().isEmpty()}">
+    <p>Person order list is empty</p>
+</div>
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Logout" />
+</form>
+</body>
+</html>
