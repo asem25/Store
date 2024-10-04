@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="UTF-8">
-    <title>This is home page</title>
+    <title>Items</title>
+    <link rel="stylesheet" href="/css/styles.css"/> <!-- подключение стилей -->
 </head>
 <body>
-<a th:href="@{/profile}">Profile</a>
+
+<h1>Items List</h1>
+
+<div class="item-container">
+    <div th:each="item : ${items}" class="item-card">
+        <h2>Item: <span th:text="${item.name}">Item Name</span></h2>
+        <p>Description: <span th:text="${item.description}">Item Description</span></p>
+        <p>Price: <span th:text="${item.price}">$100.00</span></p>
+        <p>Stock Quantity: <span th:text="${item.stockQuantity}">50</span></p>
+    </div>
+</div>
+
 </body>
 </html>

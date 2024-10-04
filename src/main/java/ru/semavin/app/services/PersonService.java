@@ -27,8 +27,9 @@ public class PersonService {
         this.modelMapper = modelMapper;
     }
 
-    public Optional<Person> findById(Integer id){
-        return peopleRepository.findById(id);
+    public Person findById(Integer id){
+        return peopleRepository.findById(id)
+                .orElseThrow(() -> new PersonNotFoundException(String.format("Person with id - %d not found", id)));
     }
     public List<Person> findAll(){
         return peopleRepository.findAll();

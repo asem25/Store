@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.semavin.app.model.Person;
 import ru.semavin.app.repositories.PeopleRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -20,9 +21,11 @@ public class RegisterServices {
         this.passwordEncoder = passwordEncoder;
     }
     @Transactional
-    public void register(Person person){
+    public void register(Person person, boolean createdByAdmin){
         person.setPass(passwordEncoder.encode(person.getPass()));
-        person.setRole("ROLE_USER");
+        if (!createdByAdmin)
+            person.setRole("ROLE_USER");
+        person.setCreatedate(LocalDateTime.now());
         personService.save(person);
     }
     @Transactional

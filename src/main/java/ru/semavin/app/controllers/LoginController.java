@@ -48,7 +48,7 @@ public class LoginController {
         }
         System.out.println(person.getUsername());
 
-        regService.register(convertToPerson(person));
+        regService.register(convertToPerson(person), false);
         return "redirect:/page";
     }
     @GetMapping("/admin")

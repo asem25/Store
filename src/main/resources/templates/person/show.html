@@ -12,7 +12,7 @@
 <body>
 <p th:text="${person.username}">VALUE</p>
 <p th:text="${person.email}">VALUE</p>
-
+<p th:text="${person.role}">VALUE</p>
 <div th:unless = "${person.getOrders().isEmpty()}">
     <hr/>
     <b>List of orders: </b>
@@ -35,11 +35,12 @@
 <div th:if = "${person.getOrders().isEmpty()}">
     <p>Person order list is empty</p>
 </div>
+<a th:href="@{/admin/users/{id}/edit(id=${person.getId()})}">Edit</a>
 
-<a th:href="@{/person/{id}/edit(id=${person.getId()})}">Edit</a>
-<form th:method="DELETE" th:action="@{/person/{id}(id = ${person.getId()})}">
+<form th:action="@{/admin/users/{id}(id=${person.getId()})}" th:method="DELETE">
     <input type="submit" value="DELETE"/>
-
 </form>
+
+
 </body>
 </html>

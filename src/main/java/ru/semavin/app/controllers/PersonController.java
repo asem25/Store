@@ -17,6 +17,7 @@ import ru.semavin.app.util.PersonNotFoundException;
 //TODO Добавить валидацию
 public class PersonController {
     private final PersonService personService;
+
     @Autowired
     public PersonController(PersonService personService) {
         this.personService = personService;

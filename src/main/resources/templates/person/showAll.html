@@ -6,9 +6,9 @@
 </head>
 <body>
 <div th:each="person : ${people}">
-    <a th:href="@{/person/{id}(id=${person.getId()})}" th:text="${person.fullname}"></a>
+    <a th:href="@{/admin/users/{id}(id=${person.getId()})}" th:text="${person.username}"></a>
 </div>
 <hr>
-<a href="/person/new">Create new person</a>
+<a href="/admin/users/person/new">Create new person</a>
 </body>
 </html>
