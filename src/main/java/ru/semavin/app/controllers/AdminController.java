@@ -85,7 +85,7 @@ public class AdminController {
 
     @GetMapping("/items")
     public String showAllItems(Model model) {
-        model.addAttribute("items", itemService.findAll());
+        model.addAttribute("itemList", itemService.findAll());
         return "item/showAll";
     }
 }
