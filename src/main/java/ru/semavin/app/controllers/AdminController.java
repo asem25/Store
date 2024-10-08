@@ -3,29 +3,30 @@ package ru.semavin.app.controllers;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.semavin.app.model.Person;
+import ru.semavin.app.services.ItemService;
 import ru.semavin.app.services.PersonService;
 import ru.semavin.app.services.RegisterServices;
-import ru.semavin.app.util.PersonNotFoundException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
+    //TODO Создание товара(написание описания)
     private final PersonService personService;
     private final RegisterServices registerServices;
+    private final ItemService itemService;
     @Autowired
-    public AdminController(PersonService personService, RegisterServices registerServices) {
+    public AdminController(PersonService personService, RegisterServices registerServices, ItemService itemService) {
         this.personService = personService;
         this.registerServices = registerServices;
+        this.itemService = itemService;
     }
 
     @GetMapping("/users/{id}")
@@ -36,7 +37,7 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public String showAll(Model model){
+    public String showAllPersons(Model model) {
         model.addAttribute("people", personService.findAll());
         return "person/showAll";
     }
@@ -80,5 +81,11 @@ public class AdminController {
     public String newCreatePage(@ModelAttribute("person") Person person, Model model){
         model.addAttribute("roles", List.of("ROLE_USER", "ROLE_ADMIN"));
         return "person/new";
+    }
+
+    @GetMapping("/items")
+    public String showAllItems(Model model) {
+        model.addAttribute("items", itemService.findAll());
+        return "item/showAll";
     }
 }

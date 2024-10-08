@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ItemService {
+public class OrderService {
     private  final OrderRepository orderRepository;
     @Autowired
     public OrderService(OrderRepository orderRepository) {
